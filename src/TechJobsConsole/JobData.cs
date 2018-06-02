@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Text;
 namespace TechJobsConsole
 {
     class JobData
+
     {
         static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
         static bool IsDataLoaded = false;
@@ -38,6 +40,35 @@ namespace TechJobsConsole
             return values;
         }
 
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            LoadData();
+
+            // List<string> values = new List<string>();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+
+            {
+                foreach (string key in row.Keys)
+                {
+                    string aValue = row[key];
+
+                    //if ((aValue.Contains(value)) && (!jobs.Contains(row)))
+                    if (aValue.ToLower().Contains(value.ToLower()))
+                    {
+                        //change to lowercase then check if they equal
+
+                        jobs.Add(row);
+                        break;
+                    }
+                }
+            }
+
+            return jobs;
+        }
+
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
             // load data, if not already loaded
@@ -49,7 +80,7 @@ namespace TechJobsConsole
             {
                 string aValue = row[column];
 
-                if (aValue.Contains(value))
+                if (aValue.ToLower().Contains(value.ToLower()))
                 {
                     jobs.Add(row);
                 }
@@ -70,7 +101,7 @@ namespace TechJobsConsole
             }
 
             List<string[]> rows = new List<string[]>();
-
+            // -- C:\Users\TryMe\Downloads\TechJobsConsole-master\TechJobsConsole-master\src\TechJobsConsole\job_data.csv
             using (StreamReader reader = File.OpenText("job_data.csv"))
             {
                 while (reader.Peek() >= 0)
@@ -137,6 +168,10 @@ namespace TechJobsConsole
             valueBuilder.Clear();
 
             return rowValues.ToArray();
+        }
+
+        private class columnChoice
+        {
         }
     }
 }

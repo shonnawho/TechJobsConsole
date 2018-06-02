@@ -7,6 +7,7 @@ namespace TechJobsConsole
     {
         static void Main(string[] args)
         {
+
             // Create two Dictionary vars to hold info for menu and data
 
             // Top-level menu options
@@ -29,6 +30,7 @@ namespace TechJobsConsole
             {
 
                 string actionChoice = GetUserSelection("View Jobs", actionChoices);
+
 
                 if (actionChoice.Equals("list"))
                 {
@@ -63,7 +65,7 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        PrintJobs(JobData.FindByValue(searchTerm));
                     }
                     else
                     {
@@ -118,7 +120,30 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+            if (someJobs.Count == 0)
+            {
+                Console.WriteLine("Sorry no results");
+            }
+            foreach (var singlePerson in someJobs)
+            {
+                string positonType = singlePerson["position type"];
+                string location = singlePerson["location"];
+                string name = singlePerson["name"];
+                string employer = singlePerson["employer"];
+                string coreCompetency = singlePerson["core competency"];
+
+
+
+
+                Console.WriteLine("****");
+                Console.WriteLine("Position type:" + positonType);
+                Console.WriteLine("name:" + name);
+                Console.WriteLine("employer:" + employer);
+                Console.WriteLine("location:" + location);
+                Console.WriteLine("core competency:" + coreCompetency);
+                Console.WriteLine("****");
+
+            }
         }
     }
 }
